@@ -1,0 +1,34 @@
+-- Insert Sample Data into Users Table
+INSERT INTO Users (Name, Email, RegistrationDate) VALUES
+('sreeraj', 'sreeraj@example.com', '2024-01-01'),
+('Sumith', 'sumith@example.com', '2024-01-02'),
+('sinan', 'sinan@example.com', '2024-01-03'),
+('Dinesh', 'dinesh@example.com', '2024-01-04'),
+('Emma', 'emma@example.com', '2024-01-05');
+
+-- Insert Sample Data into Products Table
+INSERT INTO Products (Name, Category, Price, Stock) VALUES
+('Laptop', 'Electronics', 1200.00, 50),
+('Smartphone', 'Electronics', 800.00, 100),
+('Headphones', 'Accessories', 100.00, 200),
+('Mouse', 'Accessories', 25.00, 150),
+('Keyboard', 'Accessories', 40.00, 120),
+('Monitor', 'Electronics', 300.00, 30),
+('Printer', 'Electronics', 150.00, 20),
+('Camera', 'Electronics', 500.00, 15),
+('Desk Chair', 'Furniture', 150.00, 80),
+('Desk', 'Furniture', 200.00, 60);
+
+-- Insert Sample Data into Transactions Table
+INSERT INTO Transactions (UserID, Date) VALUES
+(1, '2024-01-05'),
+(2, '2024-01-06'),
+(3, '2024-01-07');
+
+-- Insert Sample Data into TransactionDetails Table
+INSERT INTO TransactionDetails (TransactionID, ProductID, Quantity) VALUES
+(1, 1, 2),
+(1, 2, 1),
+(2, 3, 3),
+(2, 4, 1),
+(3, 5, 1);

@@ -1,0 +1,24 @@
+-- Create a custom function to calculate remaining stock for a product
+DELIMITER //
+
+CREATE FUNCTION CalculateRemainingStock(ProductID INT) 
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE remainingStock INT;
+
+    -- Get the initial stock of the product
+    SELECT Stock INTO remainingStock FROM Products WHERE ProductID = ProductID;
+
+    -- Subtract the total quantity sold from the stock
+    SELECT IFNULL(SUM(Quantity), 0) INTO remainingStock 
+    FROM TransactionDetails 
+    WHERE ProductID = ProductID;
+
+    -- Calculate remaining stock
+    SET remainingStock = remainingStock - IFNULL(SUM(Quantity), 0);
+
+    RETURN remainingStock;
+END//
+
+DELIMITER ;

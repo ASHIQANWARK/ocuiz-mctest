@@ -1,0 +1,34 @@
+-- Retrieve Users with Purchases in the Last 30 Days
+SELECT DISTINCT U.UserID, U.Name, U.Email
+FROM Users U
+JOIN Transactions T ON U.UserID = T.UserID
+WHERE T.Date >= CURDATE() - INTERVAL 30 DAY;
+
+-- Identify Top 3 Products by Purchase Frequency
+SELECT P.Name, SUM(TD.Quantity) AS TotalQuantitySold
+FROM TransactionDetails TD
+JOIN Products P ON TD.ProductID = P.ProductID
+GROUP BY P.ProductID
+ORDER BY TotalQuantitySold DESC
+LIMIT 3;
+
+-- Calculate Revenue per Product Category
+SELECT P.Category, SUM(P.Price * TD.Quantity) AS TotalRevenue
+FROM TransactionDetails TD
+JOIN Products P ON TD.ProductID = P.ProductID
+GROUP BY P.Category;
+
+-- Generate Transaction Summaries with Item Counts
+SELECT T.TransactionID, COUNT(TD.ProductID) AS ItemCount
+FROM Transactions T
+JOIN TransactionDetails TD ON T.TransactionID = TD.TransactionID
+GROUP BY T.TransactionID;
+
+-- Find Users Exceeding $500 in Total Purchases
+SELECT U.UserID, U.Name, SUM(P.Price * TD.Quantity) AS TotalSpent
+FROM Users U
+JOIN Transactions T ON U.UserID = T.UserID
+JOIN TransactionDetails TD ON T.TransactionID = TD.TransactionID
+JOIN Products P ON TD.ProductID = P.ProductID
+GROUP BY U.UserID
+HAVING TotalSpent > 500;
